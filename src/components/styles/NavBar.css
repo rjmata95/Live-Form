@@ -1,0 +1,33 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #9090ff;
+  color: #303030;
+  padding: 0.5rem 2.5rem;
+  font-size: 1rem;
+  position: sticky;
+  top: 0%;
+  z-index: 999;
+}
+
+.Navbar__list {
+  list-style: none;
+  display: flex;
+}
+
+.Navbar__item {
+  margin-left: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 769px) {
+  html {
+    font-size: 1.6rem;
+  }
+}

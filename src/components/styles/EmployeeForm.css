@@ -1,0 +1,33 @@
+form {
+  background-color: #c0d0c0;
+  width: clamp(28em, 50%, 750px);
+  /* max-width: 750px;
+  min-width: 28em; */
+  margin: 5% auto;
+  border: 2px solid #000;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px;
+  padding: 1rem;
+}
+
+/* label.row {
+  margin: 0 0.5rem 0 1rem;
+  /* flex-grow: 2; */
+/* } */
+
+.row > input,
+.row > select {
+  flex-grow: 1;
+  padding: 0.2rem 0.2rem;
+}
+
+.row > label {
+  /* width: 3.5rem; */
+  flex-basis: 3.5rem;
+}
+
+label + label {
+  /* padding-left: 1.5em; */
+  /* flex-grow: 1;
+  border: 3px solid yellow; */
+}
