@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/EmployeeTable.css";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 class EmployeeTable extends React.Component {
   componentDidMount() {
@@ -29,6 +30,12 @@ class EmployeeTable extends React.Component {
                     <td>{element.role}</td>
                     <td>{element.dob}</td>
                     <td>{element.gender}</td>
+                    <td>
+                      <FaTrashAlt />
+                    </td>
+                    <td>
+                      <FaEdit />
+                    </td>
                   </tr>
                 );
               })}

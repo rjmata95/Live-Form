@@ -2,7 +2,7 @@ table {
   text-align: center;
   /* min-width: 25em; */
   width: 100%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
   /* resize: vertical; */
   border-collapse: collapse;
 }
@@ -23,7 +23,7 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0.3em;
-  border: 1px solid #000;
+  border: 1px solid #fff;
 }
 
 td:hover {

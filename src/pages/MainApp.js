@@ -56,8 +56,6 @@ class mainApp extends React.Component {
         loading: false,
         table: { data: data.body },
       });
-
-      console.log(data);
     } catch (error) {
       this.setState({
         loading: false,
@@ -78,7 +76,8 @@ class mainApp extends React.Component {
         body: JSON.stringify(data),
       });
       this.setState({ loading: false });
-      return Promise.resolve(response);
+      let parsedResponse = await response.json();
+      return Promise.resolve(parsedResponse.body);
     } catch (error) {
       this.setState({
         loading: false,
@@ -92,51 +91,71 @@ class mainApp extends React.Component {
   setNewEntries = () => {};
 
   formChange = (e) => {
-    this.setState((state) => ({
-      form: {
-        ...state.form,
-        [e.target.name]: e.target.value,
-      },
-    }));
+    const { name, value } = e.target;
+    if (name === "dob") {
+      let dobError = formValidation.validateDOB(value);
+      this.setState((state) => ({
+        form: {
+          ...state.form,
+          [name]: value,
+          dobError,
+        },
+      }));
+    } else {
+      this.setState((state) => ({
+        form: {
+          ...state.form,
+          [e.target.name]: e.target.value,
+        },
+      }));
+    }
   };
+
   formSubmitted = (e) => {
     e.preventDefault();
     //validate entries from this.state.form
     let state = this.state;
-    this.setState((state) => {
-      let nameError = formValidation.validateName(state.form.name);
-      let emailError = formValidation.validateEmail(state.form.email);
-      let roleError = formValidation.validateRole(state.form.role);
-      let dobError = formValidation.validateDOB(state.form.dob);
-      let genderError = formValidation.validateGender(state.form.gender);
-      let newData;
 
-      if (
-        nameError === null &&
-        emailError === null &&
-        roleError === null &&
-        dobError === null &&
-        genderError === null
-      ) {
-        newData = state.table.data.concat({
-          _id: uuid(),
-          ...state.form,
-        });
-        this.submitData(newData)
-          .then((response) => {
-            console.log(response);
-            return { form: formInitialState, table: { data: newData } };
-          })
-          .catch((error) => {
-            console.log(error);
-            return { form: formInitialState };
+    let nameError = formValidation.validateName(state.form.name);
+    let emailError = formValidation.validateEmail(state.form.email);
+    let roleError = formValidation.validateRole(state.form.role);
+    let dobError = formValidation.validateDOB(state.form.dob);
+    let genderError = formValidation.validateGender(state.form.gender);
+    let newData;
+
+    if (
+      nameError === null &&
+      emailError === null &&
+      roleError === null &&
+      dobError === null &&
+      genderError === null
+    ) {
+      this.submitData(state.form)
+        .then((response) => {
+          newData = state.table.data.concat({
+            _id: response._id,
+            ...state.form,
           });
-      } else {
-        return {
-          form: { nameError, emailError, roleError, dobError, genderError },
-        };
-      }
-    });
+          console.log(response);
+          this.setState({ form: formInitialState, table: { data: newData } });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({ form: formInitialState });
+        });
+    } else {
+      console.log(state);
+      this.setState((state) => ({
+        form: {
+          ...state.form,
+          nameError,
+          emailError,
+          roleError,
+          dobError,
+          genderError,
+        },
+      }));
+    }
 
     //toggle submit to true (may not be necessary)
   };

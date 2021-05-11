@@ -1,4 +1,4 @@
-form {
+.employeeForm {
   background-color: #c0d0c0;
   width: clamp(28em, 50%, 750px);
   /* max-width: 750px;
@@ -8,6 +8,14 @@ form {
   border-radius: 5px;
   box-shadow: 2px 2px 3px;
   padding: 1rem;
+}
+
+.employeeForm > p {
+  font-size: 0.5em;
+  color: red;
+  /* width: 50%;*/
+  margin: -0.5rem;
+  text-align: center;
 }
 
 /* label.row {

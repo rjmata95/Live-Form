@@ -33,9 +33,9 @@ class EmployeeForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.onSubmit}>
+      <form className="employeeForm" onSubmit={this.props.onSubmit}>
         <div className="row ">
-          <label>Name:</label>
+          <label htmlFor="name">Name:</label>
           <input
             onChange={this.props.onChange}
             type="text"
@@ -43,15 +43,21 @@ class EmployeeForm extends React.Component {
             value={this.props.formState.name}
           />
         </div>
+        {this.props.formState.nameError && (
+          <p>{this.props.formState.nameError}</p>
+        )}
         <div className="row ">
-          <label>E-mail:</label>
+          <label htmlFor="email">E-mail:</label>
           <input
             onChange={this.props.onChange}
-            type="email"
+            type="text"
             name="email"
             value={this.props.formState.email}
           />
         </div>
+        {this.props.formState.emailError && (
+          <p>{this.props.formState.emailError}</p>
+        )}
         <div className="row ">
           <label>Role:</label>
           <select
@@ -70,6 +76,9 @@ class EmployeeForm extends React.Component {
             <option value="UXD">UX Designer</option>
           </select>
         </div>
+        {this.props.formState.roleError && (
+          <p>{this.props.formState.roleError}</p>
+        )}
         <div className="row ">
           <label>DOB:</label>
           <input
@@ -79,6 +88,9 @@ class EmployeeForm extends React.Component {
             value={this.props.formState.dob}
           />
         </div>
+        {this.props.formState.dobError && (
+          <p>{this.props.formState.dobError}</p>
+        )}
         <div className="row ">
           <span>Gender:</span>
           <label className="row nowrap">
@@ -112,6 +124,9 @@ class EmployeeForm extends React.Component {
             />
           </label>
         </div>
+        {this.props.formState.genderError && (
+          <p>{this.props.formState.genderError}</p>
+        )}
         <div className="row centered">
           <button>Submit</button>
           <button
