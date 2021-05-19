@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/EmployeeForm.css";
+import "./style.css";
 // import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 
 class EmployeeForm extends React.Component {
@@ -128,18 +128,12 @@ class EmployeeForm extends React.Component {
           <p>{this.props.formState.genderError}</p>
         )}
         <div className="row centered">
-          <button>Submit</button>
-          <button
-            type="button"
-            style={{ marginLeft: "2em" }}
-            onClick={this.printState}
-          >
-            Print State
-          </button>
+          <button className={"formBtn"}>Submit</button>
           <button
             type="button"
             style={{ marginLeft: "2em" }}
             onClick={this.resetState}
+            className={"formBtn"}
           >
             reset State
           </button>

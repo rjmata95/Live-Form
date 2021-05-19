@@ -1,10 +1,9 @@
 import React from "react";
 import "./styles/MainApp.css";
-import NavBar from "../components/NavBar";
-import EmployeeForm from "../components/EmployeeForm";
-import EmployeeTable from "../components/EmployeeTable";
-import { v4 as uuid } from "uuid";
-import formValidation from "../components/formValidation";
+import NavBar from "../components/NavBar/NavBar";
+import EmployeeForm from "../components/EmployeeForm/EmployeeForm";
+import EmployeeTable from "../components/EmployeeTable/EmployeeTable";
+import formValidation from "../components/EmployeeForm/formValidation";
 
 const formInitialState = {
   name: "",
@@ -22,7 +21,7 @@ class mainApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: false,
       error: null,
       form: formInitialState,
       table: {
@@ -50,7 +49,7 @@ class mainApp extends React.Component {
   fetchData = async () => {
     this.setState({ loading: true });
     try {
-      const response = await fetch("http://localhost:8080/table");
+      const response = await fetch("http://192.168.1.17:8080/table");
       const data = await response.json();
       this.setState({
         loading: false,
@@ -68,7 +67,7 @@ class mainApp extends React.Component {
   submitData = async (data) => {
     this.setState({ loading: true });
     try {
-      const response = await fetch("http://localhost:8080/table", {
+      const response = await fetch("http://192.168.1.17:8080/table", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +87,33 @@ class mainApp extends React.Component {
     }
   };
 
-  setNewEntries = () => {};
+  deleteData = async (id) => {
+    this.setState({ loading: true });
+    try {
+      const response = await fetch(`http://192.168.1.17:8080/table/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      });
+
+      const parsedResponse = await response.json();
+      if (response.status) {
+        let updatedTable = [...this.state.table.data].filter(
+          (element) => element._id !== id
+        );
+        console.log(parsedResponse);
+        this.setState({ loading: false, table: { data: updatedTable } });
+      } else {
+        this.setState({ loading: false });
+        throw "Server response status is set to Failure";
+      }
+    } catch (error) {
+      console.log(`there was an Error during DELETE method: ${error}`);
+      this.setState({ loading: false, error });
+    }
+  };
 
   formChange = (e) => {
     const { name, value } = e.target;
@@ -171,7 +196,12 @@ class mainApp extends React.Component {
           />
         </div>
         <div>
-          <EmployeeTable updateTable={this.state.table.data} />
+          <EmployeeTable
+            updateTable={this.state.table.data}
+            deleteHandler={this.deleteData}
+            isLoading={this.state.loading}
+            updateHandler={(state) => this.setState(state)}
+          />
         </div>
       </div>
     );

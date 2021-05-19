@@ -28,7 +28,6 @@ td {
 
 td:hover {
   overflow: visible;
-  background-color: turquoise;
 }
 
 tr > td:nth-child(3),
@@ -42,6 +41,7 @@ tr > th:nth-child(3) {
 } */
 
 .container__component {
+  font-size: 1.6rem;
   background-color: #d0a0f0;
   padding: 1em;
   width: max(28em, 75%);
@@ -57,4 +57,14 @@ tr > th:nth-child(3) {
   height: 300px;
   border: 1px solid #000;
   overflow: auto;
+}
+
+.editable select,
+.editable input {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #3e3e3e;
+  border-radius: 3px;
+  padding: 0.4em 0.8em;
 }

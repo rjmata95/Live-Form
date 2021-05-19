@@ -58,10 +58,27 @@ function validateGender(gender) {
   }
 }
 
+function validateEmployee(object) {
+  let nameError = validateName(object.name);
+  let emailError = validateEmail(object.email);
+  let roleError = validateRole(object.role);
+  let dobError = validateDOB(object.dob);
+  let genderError = validateGender(object.gender);
+
+  return {
+    nameError: nameError || "",
+    emailError: emailError || "",
+    roleError: roleError || "",
+    dobError: dobError || "",
+    genderError: genderError || "",
+  };
+}
+
 export default {
   validateDOB,
   validateRole,
   validateName,
   validateGender,
   validateEmail,
+  validateEmployee,
 };
